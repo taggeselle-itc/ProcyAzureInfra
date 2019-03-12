@@ -7,6 +7,7 @@ declare resourceGroupLocation="West Europe"
 declare resourcegroup="rg-procy-webapp"
 declare webappname="ProcyWebApp"
 declare appserviceplan="ProcyWebAppServicePlan"
+declare database_name="ProcyDB"
 declare password=""
 
 
@@ -25,6 +26,9 @@ while getopts ":s:l:r:a:ap:" arg; do
         a)
 			webappname=${OPTARG}
 			;;
+        d)
+			database_name=${OPTARG}
+			;;
         ap)
 			appserviceplan=${OPTARG}
 			;;
@@ -35,7 +39,7 @@ while getopts ":s:l:r:a:ap:" arg; do
 done
 shift $((OPTIND-1))
 
-connectionString="Server=tcp:procydbserver.database.windows.net,1433;Initial Catalog=HappyCustomerDB;Persist Security Info=False;User ID=ProcyUser;Password=${password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+connectionString="Server=tcp:procydbserver.database.windows.net,1433;Initial Catalog=${database_name};Persist Security Info=False;User ID=ProcyUser;Password=${password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
 az group create --location $resourceGroupLocation --name $resourcegroup
 
