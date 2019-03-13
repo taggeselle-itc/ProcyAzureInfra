@@ -12,7 +12,7 @@ declare password=""
 
 
 # Initialize parameters specified from command line
-while getopts ":s:l:r:a:ap:" arg; do
+while getopts ":s:l:r:a:ap:d:p:" arg; do
 	case "${arg}" in
 		s)
 			sku=${OPTARG}

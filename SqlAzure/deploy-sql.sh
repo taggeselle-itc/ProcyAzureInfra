@@ -6,10 +6,11 @@ declare env="dev"
 declare resourceGroupLocation="West Europe"
 declare resourcegroup="rg-procy-sql"
 declare database_name="ProcyDB"
+declare server="procydbserver"
 declare password=""
 
 # Initialize parameters specified from command line
-while getopts ":e:l:r:d:p:" arg; do
+while getopts ":e:l:r:d:s:p:" arg; do
 	case "${arg}" in
 		e)
 			env=${OPTARG}
@@ -23,6 +24,9 @@ while getopts ":e:l:r:d:p:" arg; do
         d)
 			database_name=${OPTARG}
 			;;
+		s)
+			server=${OPTARG}
+			;;
         p)
 			password=${OPTARG}
 			;;
@@ -34,4 +38,4 @@ shift $((OPTIND-1))
 az group create --name ${resourcegroup} --location ${resourceGroupLocation}
 
 #create deployment for sepecific given environment
-az group deployment create --resource-group ${resourcegroup} --template-file azuredeploy.json --parameters @$env.parameters.json --parameters database_name=${database_name} --parameters sqlserveradminpw=${password}
+az group deployment create --resource-group ${resourcegroup} --template-file azuredeploy.json --parameters @$env.parameters.json --parameters database_name=$database_name --parameters server_name=$server --parameters sqlserveradminpw=$password
