@@ -12,7 +12,7 @@ declare password=""
 
 
 # Initialize parameters specified from command line
-while getopts ":s:l:r:a:ap:d:p:" arg; do
+while getopts ":s:l:r:a:w:d:p:" arg; do
 	case "${arg}" in
 		s)
 			sku=${OPTARG}
@@ -29,7 +29,7 @@ while getopts ":s:l:r:a:ap:d:p:" arg; do
         d)
 			database_name=${OPTARG}
 			;;
-        ap)
+        w)
 			appserviceplan=${OPTARG}
 			;;
         p)
