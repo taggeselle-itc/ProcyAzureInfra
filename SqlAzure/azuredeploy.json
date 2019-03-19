@@ -3,38 +3,40 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "server_name": {
-            "type": "String"
+            "type": "string"
         },
         "database_name": {
-            "type": "String"
+            "type": "string"
         },
         "sku": {
             "defaultValue": "Basic",
-            "type": "String"
+            "type": "string"
         },
         "sqlserveradminpw":{
-            "type": "string"
+            "type": "securestring",
+            "defaultValue": ""
         },
         "advisors_DropIndex_name": {
             "defaultValue": "DropIndex",
-            "type": "String"
+            "type": "string"
         },
         "advisors_CreateIndex_name": {
             "defaultValue": "CreateIndex",
-            "type": "String"
+            "type": "string"
         },
         "firewallRules_AllowAllWindowsAzureIps_name": {
             "defaultValue": "AllowAllWindowsAzureIps",
-            "type": "String"
+            "type": "string"
         },
         "databases_master_name": {
             "defaultValue": "master",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {},
     "resources": [
         {
+            "condition": "[greater(length(parameters('sqlserveradminpw')) , 0)]",
             "type": "Microsoft.Sql/servers",
             "kind": "v12.0",
             "name": "[parameters('server_name')]",
