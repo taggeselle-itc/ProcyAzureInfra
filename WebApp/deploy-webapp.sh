@@ -8,11 +8,12 @@ declare resourcegroup="rg-procy-webapp"
 declare webappname="ProcyWebApp"
 declare appserviceplan="ProcyWebAppServicePlan"
 declare database_name="ProcyDB"
+declare database_server="procydbserver"
 declare password=""
 
 
 # Initialize parameters specified from command line
-while getopts ":s:l:r:a:f:d:p:" arg; do
+while getopts ":s:l:r:a:f:d:p:u:" arg; do
 	case "${arg}" in
 		s)
 			sku=${OPTARG}
@@ -35,11 +36,14 @@ while getopts ":s:l:r:a:f:d:p:" arg; do
         p)
 			password=${OPTARG}
 			;;
+        u)
+			database_server=${OPTARG}
+			;;
 		esac
 done
 shift $((OPTIND-1))
 
-connectionString="Server=tcp:procydbserver.database.windows.net,1433;Initial Catalog=${database_name};Persist Security Info=False;User ID=ProcyUser;Password=${password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+connectionString="Server=tcp:${database_server}.database.windows.net,1433;Initial Catalog=${database_name};Persist Security Info=False;User ID=ProcyUser;Password=${password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
 az group create --location $resourceGroupLocation --name $resourcegroup
 
